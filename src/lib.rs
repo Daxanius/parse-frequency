@@ -77,7 +77,7 @@ impl Frequency {
     /// # Examples
     ///
     /// ```rust
-    /// use your_crate::Frequency;
+    /// use parse_frequency::Frequency;
     ///
     /// let freq = Frequency::from_ghz(1);
     /// let duration = freq.as_duration();
@@ -158,21 +158,21 @@ impl Sub for Frequency {
 /// # Examples
 ///
 /// ```
-/// use your_crate::Frequency;
+/// use parse_frequency::Frequency;
 ///
-/// let freq = Frequency::parse_frequency("2.5GHz").unwrap();
-/// assert_eq!(freq.as_hz(), 2_500_000_000);
+/// let freq = parse_frequency::parse_frequency("2.5GHz").unwrap();
+/// assert_eq!(freq.to_hz(), 2_500_000_000);
 ///
-/// let freq = Frequency::parse_frequency("1.5MHz").unwrap();
-/// assert_eq!(freq.as_hz(), 1_500_000);
+/// let freq = parse_frequency::parse_frequency("1.5MHz").unwrap();
+/// assert_eq!(freq.to_hz(), 1_500_000);
 ///
-/// let freq = Frequency::parse_frequency("500kHz").unwrap();
-/// assert_eq!(freq.as_hz(), 500_000);
+/// let freq = parse_frequency::parse_frequency("500kHz").unwrap();
+/// assert_eq!(freq.to_hz(), 500_000);
 ///
-/// let freq = Frequency::parse_frequency("100Hz").unwrap();
-/// assert_eq!(freq.as_hz(), 100);
+/// let freq = parse_frequency::parse_frequency("100Hz").unwrap();
+/// assert_eq!(freq.to_hz(), 100);
 ///
-/// let freq = Frequency::parse_frequency("invalid").unwrap_err();
+/// let freq = parse_frequency::parse_frequency("invalid").unwrap_err();
 /// assert_eq!(freq.to_string(), "Unknown unit: invalid");
 /// ```
 ///
