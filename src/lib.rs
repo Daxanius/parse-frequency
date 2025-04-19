@@ -1,14 +1,211 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use std::{
+    fmt::Display,
+    ops::{Add, Sub},
+    str::FromStr,
+};
+
+pub use error::*;
+
+mod error;
+mod tests;
+
+#[cfg(feature = "serde")]
+mod serde;
+
+#[cfg(feature = "clap")]
+mod clap;
+
+/// 1 kilohertz (kHz) in hertz
+pub const KILOHERTZ: u64 = 1_000;
+
+/// 1 megahertz (MHz) in hertz
+pub const MEGAHERTZ: u64 = 1_000_000;
+
+/// 1 gigahertz (GHz) in hertz
+pub const GIGAHERTZ: u64 = 1_000_000_000;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default, Hash)]
+#[repr(transparent)]
+pub struct Frequency(pub u64);
+
+unsafe impl Send for Frequency {}
+unsafe impl Sync for Frequency {}
+
+impl Frequency {
+    #[must_use]
+    pub fn from_hz(hz: u64) -> Self {
+        Self(hz)
+    }
+
+    #[must_use]
+    pub fn from_khz(khz: u64) -> Self {
+        Self(khz * KILOHERTZ)
+    }
+
+    #[must_use]
+    pub fn from_mhz(mhz: u64) -> Self {
+        Self(mhz * MEGAHERTZ)
+    }
+
+    #[must_use]
+    pub fn from_ghz(ghz: u64) -> Self {
+        Self(ghz * GIGAHERTZ)
+    }
+
+    #[must_use]
+    pub fn to_hz(&self) -> u64 {
+        self.0
+    }
+
+    #[must_use]
+    pub fn to_khz(&self) -> u64 {
+        self.to_hz() / KILOHERTZ
+    }
+
+    #[must_use]
+    pub fn to_mhz(&self) -> u64 {
+        self.to_hz() / MEGAHERTZ
+    }
+
+    #[must_use]
+    pub fn to_ghz(&self) -> u64 {
+        self.to_hz() / GIGAHERTZ
+    }
+
+    /// Converts the frequency to a `std::time::Duration`.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use your_crate::Frequency;
+    ///
+    /// let freq = Frequency::from_ghz(1);
+    /// let duration = freq.as_duration();
+    /// assert_eq!(duration.as_nanos(), 1);
+    /// ```
+    /// # Returns
+    /// A `std::time::Duration` representing the frequency.
+    #[must_use]
+    pub fn as_duration(&self) -> std::time::Duration {
+        if self.0 == 0 {
+            std::time::Duration::from_secs(0)
+        } else {
+            std::time::Duration::from_nanos(GIGAHERTZ / self.0)
+        }
+    }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+impl Display for Frequency {
+    // Precision loss is acceptable here
+    #[allow(clippy::cast_precision_loss)]
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let value = self.to_hz();
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        if value >= GIGAHERTZ {
+            write!(f, "{:.2} GHz", value as f64 / GIGAHERTZ as f64)
+        } else if value >= MEGAHERTZ {
+            write!(f, "{:.2} MHz", value as f64 / MEGAHERTZ as f64)
+        } else if value >= KILOHERTZ {
+            write!(f, "{:.2} kHz", value as f64 / KILOHERTZ as f64)
+        } else {
+            write!(f, "{value} Hz")
+        }
     }
+}
+
+impl FromStr for Frequency {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self> {
+        parse_frequency(s)
+    }
+}
+
+impl TryFrom<&str> for Frequency {
+    type Error = Error;
+
+    fn try_from(s: &str) -> Result<Self> {
+        parse_frequency(s)
+    }
+}
+
+impl TryFrom<String> for Frequency {
+    type Error = Error;
+
+    fn try_from(s: String) -> Result<Self> {
+        parse_frequency(&s)
+    }
+}
+
+impl Add for Frequency {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self::Output {
+        Self(self.0 + other.0)
+    }
+}
+
+impl Sub for Frequency {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self::Output {
+        Self(self.0 - other.0)
+    }
+}
+
+/// Parses a frequency string and returns a `Frequency` instance.
+///
+/// # Examples
+///
+/// ```
+/// use your_crate::Frequency;
+///
+/// let freq = Frequency::parse_frequency("2.5GHz").unwrap();
+/// assert_eq!(freq.as_hz(), 2_500_000_000);
+///
+/// let freq = Frequency::parse_frequency("1.5MHz").unwrap();
+/// assert_eq!(freq.as_hz(), 1_500_000);
+///
+/// let freq = Frequency::parse_frequency("500kHz").unwrap();
+/// assert_eq!(freq.as_hz(), 500_000);
+///
+/// let freq = Frequency::parse_frequency("100Hz").unwrap();
+/// assert_eq!(freq.as_hz(), 100);
+///
+/// let freq = Frequency::parse_frequency("invalid").unwrap_err();
+/// assert_eq!(freq.to_string(), "Unknown unit: invalid");
+/// ```
+///
+/// # Errors
+///
+/// If the input string does not match any of the expected formats (e.g., "1GHz", "2.5MHz", etc.), an error is returned.
+pub fn parse_frequency(s: &str) -> Result<Frequency> {
+    let s = s.trim().to_lowercase();
+
+    let (value_str, multiplier) = if let Some(value) = s.strip_suffix("ghz") {
+        (value, 1_000_000_000)
+    } else if let Some(value) = s.strip_suffix("mhz") {
+        (value, 1_000_000)
+    } else if let Some(value) = s.strip_suffix("khz") {
+        (value, 1_000)
+    } else if let Some(value) = s.strip_suffix("hz") {
+        (value, 1)
+    } else {
+        return Err(Error::UnknownUnit(s.to_string()));
+    };
+
+    let value = value_str
+        .trim()
+        .parse::<f64>()
+        .map_err(|_| Error::InvalidValue(value_str.to_string()))?;
+
+    // Negative values are not allowed
+    if value.is_sign_negative() {
+        return Err(Error::InvalidValue(value_str.to_string()));
+    }
+
+    // It is OK to lose sign and precision here
+    #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+    let hz = (value * f64::from(multiplier)).round() as u64;
+    Ok(Frequency(hz))
 }

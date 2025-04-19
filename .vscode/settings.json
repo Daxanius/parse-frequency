@@ -1,0 +1,9 @@
+{
+    "rust-analyzer.cargo.features": [
+        "serde",
+        "clap",
+    ],
+    "cSpell.words": [
+        "repr"
+    ]
+}
