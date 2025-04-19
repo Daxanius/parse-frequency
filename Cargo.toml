@@ -7,6 +7,7 @@ description = "A simple library to parse frequency strings into a frequency in H
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Daxanius/parse-frequency"
+homepage = "https://github.com/Daxanius/parse-frequency"
 keywords = ["frequency", "parser", "cli", "units", "clap"]
 categories = ["command-line-utilities", "value-formatting"]
 exclude = [".vscode", ".github"]
