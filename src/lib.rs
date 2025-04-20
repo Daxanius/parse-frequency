@@ -9,14 +9,14 @@ pub use error::*;
 mod error;
 mod tests;
 
-#[cfg(feature = "serde")]
-mod serde;
-
 #[cfg(feature = "clap")]
 mod clap;
-
 #[cfg(feature = "num-traits")]
 mod num_traits;
+#[cfg(feature = "schemars")]
+mod schemars;
+#[cfg(feature = "serde")]
+mod serde;
 
 /// 1 kilohertz (kHz) in hertz
 pub const KILOHERTZ: u64 = 1_000;

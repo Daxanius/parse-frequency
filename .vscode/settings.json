@@ -2,14 +2,18 @@
     "rust-analyzer.cargo.features": [
         "serde",
         "clap",
-        "num-traits"
+        "num-traits",
+        "schemars"
     ],
     "cSpell.words": [
+        "docsrs",
         "eprintln",
         "freqs",
         "nanos",
         "println",
         "repr",
+        "rustdoc",
+        "schemars",
         "serde",
         "strfreq"
     ]
