@@ -72,6 +72,46 @@ unsafe impl Send for Frequency {}
 unsafe impl Sync for Frequency {}
 
 impl Frequency {
+    /// Equivalent to `0 Hz`
+    ///
+    /// ```rust
+    /// # use parse_frequency::Frequency;
+    /// assert_eq!(Frequency::ZERO, Frequency::from_hz(0));
+    /// ```
+    pub const ZERO: Self = Self(0);
+
+    /// Equivalent to `1 Hz`
+    ///
+    /// ```rust
+    /// # use parse_frequency::Frequency;
+    /// assert_eq!(Frequency::HERTZ, Frequency::from_hz(1));
+    /// ```
+    pub const HERTZ: Self = Self(1);
+
+    /// Equivalent to `1 kHz`
+    ///
+    /// ```rust
+    /// # use parse_frequency::Frequency;
+    /// assert_eq!(Frequency::KILOHERTZ, Frequency::from_khz(1));
+    /// ```
+    pub const KILOHERTZ: Self = Self(KILOHERTZ);
+
+    /// Equivalent to `1 MHz`
+    ///
+    /// ```rust
+    /// # use parse_frequency::Frequency;
+    /// assert_eq!(Frequency::MEGAHERTZ, Frequency::from_mhz(1));
+    /// ```
+    pub const MEGAHERTZ: Self = Self(MEGAHERTZ);
+
+    /// Equivalent to `1 GHz`
+    ///
+    /// ```rust
+    /// # use parse_frequency::Frequency;
+    /// assert_eq!(Frequency::GIGAHERTZ, Frequency::from_ghz(1));
+    /// ```
+    pub const GIGAHERTZ: Self = Self(GIGAHERTZ);
+
     #[must_use]
     pub fn from_hz(hz: u64) -> Self {
         Self(hz)

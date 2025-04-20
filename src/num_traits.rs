@@ -27,7 +27,7 @@ impl Rem for Frequency {
 
 impl num_traits::Zero for Frequency {
     fn zero() -> Self {
-        Frequency(0)
+        Frequency::ZERO
     }
 
     fn is_zero(&self) -> bool {
@@ -37,7 +37,7 @@ impl num_traits::Zero for Frequency {
 
 impl num_traits::One for Frequency {
     fn one() -> Self {
-        Frequency(1)
+        Frequency::HERTZ
     }
 }
 

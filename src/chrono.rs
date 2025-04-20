@@ -1,5 +1,4 @@
 use super::Frequency;
-use chrono::Duration;
 
 impl Frequency {
     /// Converts the frequency to a `chrono::Duration`.
@@ -20,13 +19,13 @@ impl Frequency {
     #[allow(clippy::cast_possible_truncation, clippy::cast_possible_wrap)]
     pub fn as_chrono_duration(&self) -> chrono::Duration {
         if self.0 == 0 {
-            return Duration::zero();
+            return chrono::Duration::zero();
         }
 
         let nanoseconds_per_second: u64 = 1_000_000_000;
 
         if nanoseconds_per_second >= self.0 {
-            Duration::nanoseconds((nanoseconds_per_second / self.0) as i64)
+            chrono::Duration::nanoseconds((nanoseconds_per_second / self.0) as i64)
         } else {
             // If frequency is higher than 1 GHz, the period is less than 1 ns.
             // Calculate in picoseconds and then convert to nanoseconds.
@@ -34,7 +33,7 @@ impl Frequency {
             let frequency: u128 = u128::from(self.0);
             let period_in_picoseconds = picoseconds_per_second / frequency;
             let period_in_nanoseconds = period_in_picoseconds / 1_000;
-            Duration::nanoseconds(period_in_nanoseconds as i64)
+            chrono::Duration::nanoseconds(period_in_nanoseconds as i64)
         }
     }
 }
