@@ -110,7 +110,7 @@ impl Frequency {
     #[must_use]
     pub fn as_duration(&self) -> std::time::Duration {
         if self.0 == 0 {
-            std::time::Duration::from_secs(0)
+            std::time::Duration::ZERO
         } else {
             std::time::Duration::from_nanos(GIGAHERTZ / self.0)
         }
