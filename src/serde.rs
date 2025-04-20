@@ -1,4 +1,4 @@
-use super::*;
+use super::{Frequency, parse_frequency, serde};
 use ::serde::{Deserialize, Deserializer, Serialize, Serializer, de};
 
 impl<'de> Deserialize<'de> for Frequency {
