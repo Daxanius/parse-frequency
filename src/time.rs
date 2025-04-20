@@ -10,6 +10,10 @@ impl Frequency {
     /// let freq = Frequency::from_ghz(1);
     /// let duration = freq.as_time_duration();
     /// assert_eq!(duration.whole_nanoseconds(), 1);
+    ///
+    /// let freq = Frequency::from_mhz(1);
+    /// let duration = freq.as_time_duration();
+    /// assert_eq!(duration.whole_nanoseconds(), 1_000);
     /// ```
     #[must_use]
     #[allow(clippy::cast_possible_truncation, clippy::cast_possible_wrap)]

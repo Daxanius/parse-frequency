@@ -4,9 +4,12 @@
         "clap",
         "num-traits",
         "schemars",
-        "time"
+        "time",
+        "chrono"
     ],
     "cSpell.words": [
+        "chrono",
+        "clippy",
         "docsrs",
         "eprintln",
         "freqs",

@@ -9,6 +9,8 @@ pub use error::*;
 mod error;
 mod tests;
 
+#[cfg(feature = "chrono")]
+mod chrono;
 #[cfg(feature = "clap")]
 mod clap;
 #[cfg(feature = "num-traits")]
