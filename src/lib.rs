@@ -30,6 +30,17 @@ pub const GIGAHERTZ: u64 = 1_000_000_000;
 /// It provides methods to convert between different frequency units (Hz, kHz, MHz, GHz) and
 /// to parse frequency strings.
 ///
+/// # Units
+/// - Hertz (Hz)
+/// - Kilohertz (kHz)
+/// - Megahertz (MHz)
+/// - Gigahertz (GHz)
+///
+/// # Note
+/// When converting to a string or using display, the frequency is formatted with two decimal places.
+/// This is done to provide a consistent representation of the frequency. However, this may lead to
+/// precision loss when converting back to a number.
+///
 /// # Examples
 ///
 /// ```rust
