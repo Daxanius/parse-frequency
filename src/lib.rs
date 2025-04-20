@@ -17,6 +17,8 @@ mod num_traits;
 mod schemars;
 #[cfg(feature = "serde")]
 mod serde;
+#[cfg(feature = "time")]
+mod time;
 
 /// 1 kilohertz (kHz) in hertz
 pub const KILOHERTZ: u64 = 1_000;

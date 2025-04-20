@@ -3,7 +3,8 @@
         "serde",
         "clap",
         "num-traits",
-        "schemars"
+        "schemars",
+        "time"
     ],
     "cSpell.words": [
         "docsrs",
