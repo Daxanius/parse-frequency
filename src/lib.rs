@@ -113,41 +113,49 @@ impl Frequency {
     pub const GIGAHERTZ: Self = Self(GIGAHERTZ);
 
     #[must_use]
+    #[doc(alias = "from_hertz")]
     pub fn from_hz(hz: u64) -> Self {
         Self(hz)
     }
 
     #[must_use]
+    #[doc(alias = "from_kilohertz")]
     pub fn from_khz(khz: u64) -> Self {
         Self(khz * KILOHERTZ)
     }
 
     #[must_use]
+    #[doc(alias = "from_megahertz")]
     pub fn from_mhz(mhz: u64) -> Self {
         Self(mhz * MEGAHERTZ)
     }
 
     #[must_use]
+    #[doc(alias = "from_gigahertz")]
     pub fn from_ghz(ghz: u64) -> Self {
         Self(ghz * GIGAHERTZ)
     }
 
     #[must_use]
+    #[doc(alias = "as_hertz")]
     pub fn as_hz(&self) -> u64 {
         self.0
     }
 
     #[must_use]
+    #[doc(alias = "as_kilohertz")]
     pub fn as_khz(&self) -> u64 {
         self.as_hz() / KILOHERTZ
     }
 
     #[must_use]
+    #[doc(alias = "as_megahertz")]
     pub fn as_mhz(&self) -> u64 {
         self.as_hz() / MEGAHERTZ
     }
 
     #[must_use]
+    #[doc(alias = "as_gigahertz")]
     pub fn as_ghz(&self) -> u64 {
         self.as_hz() / GIGAHERTZ
     }
