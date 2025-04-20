@@ -189,6 +189,22 @@ impl Sub for Frequency {
     }
 }
 
+impl Mul<u64> for Frequency {
+    type Output = Self;
+
+    fn mul(self, rhs: u64) -> Self::Output {
+        Self(self.0 * rhs)
+    }
+}
+
+impl Div<u64> for Frequency {
+    type Output = Self;
+
+    fn div(self, rhs: u64) -> Self::Output {
+        Self(self.0 / rhs)
+    }
+}
+
 /// Parses a frequency string and returns a `Frequency` instance.
 ///
 /// # Examples
