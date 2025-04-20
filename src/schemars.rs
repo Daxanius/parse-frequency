@@ -11,7 +11,7 @@ impl JsonSchema for Frequency {
 
     fn json_schema(_gen: &mut SchemaGenerator) -> Schema {
         Schema::Object(SchemaObject {
-            instance_type: Some(InstanceType::Integer.into()),
+            instance_type: Some(InstanceType::String.into()),
             format: Some("frequency".to_string()),
             metadata: Some(Box::new(Metadata {
                 description: Some(
