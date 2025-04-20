@@ -2,6 +2,7 @@
     "rust-analyzer.cargo.features": [
         "serde",
         "clap",
+        "num-traits"
     ],
     "cSpell.words": [
         "eprintln",

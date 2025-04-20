@@ -22,6 +22,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 [dependencies]
 clap = { optional = true, version = "4", features = ["derive"] }
 serde = { version = "1.0", optional = true }
+num-traits = { version = "0.2", optional = true }
 
 [dev-dependencies]
 serde_json = "1.0"
@@ -30,3 +31,4 @@ serde_json = "1.0"
 default = []
 clap = ["dep:clap"]
 serde = ["dep:serde"]
+num-traits = ["dep:num-traits"]

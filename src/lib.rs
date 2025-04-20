@@ -1,6 +1,6 @@
 use std::{
     fmt::Display,
-    ops::{Add, Sub},
+    ops::{Add, Div, Mul, Sub},
     str::FromStr,
 };
 
@@ -14,6 +14,9 @@ mod serde;
 
 #[cfg(feature = "clap")]
 mod clap;
+
+#[cfg(feature = "num-traits")]
+mod num_traits;
 
 /// 1 kilohertz (kHz) in hertz
 pub const KILOHERTZ: u64 = 1_000;
