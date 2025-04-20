@@ -38,7 +38,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-parse-frequency = "1.1"
+parse-frequency = "2.0"
 ```
 
 Enable optional features:
