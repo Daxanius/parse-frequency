@@ -57,7 +57,7 @@ features = ["serde", "clap"]
 use parse_frequency::Frequency;
 
 let freq: Frequency = "2.5GHz".parse().unwrap();
-assert_eq!(freq.to_hz(), 2_500_000_000);
+assert_eq!(freq.as_hz(), 2_500_000_000);
 ```
 
 ### Convert between units
@@ -65,8 +65,8 @@ assert_eq!(freq.to_hz(), 2_500_000_000);
 use parse_frequency::{Frequency, KILOHERTZ};
 
 let f = Frequency::from_khz(2000);
-assert_eq!(f.to_mhz(), 2);
-assert_eq!(f.to_hz(), 2 * KILOHERTZ * 1000);
+assert_eq!(f.as_mhz(), 2);
+assert_eq!(f.as_hz(), 2 * KILOHERTZ * 1000);
 ```
 
 ### Format for display

@@ -63,15 +63,15 @@ fn test_roundtrip_display_parse() {
 #[test]
 fn test_unit_conversions() {
     let freq = Frequency::from_ghz(1);
-    assert_eq!(freq.to_hz(), 1_000_000_000);
-    assert_eq!(freq.to_khz(), 1_000_000);
-    assert_eq!(freq.to_mhz(), 1_000);
-    assert_eq!(freq.to_ghz(), 1);
+    assert_eq!(freq.as_hz(), 1_000_000_000);
+    assert_eq!(freq.as_khz(), 1_000_000);
+    assert_eq!(freq.as_mhz(), 1_000);
+    assert_eq!(freq.as_ghz(), 1);
 
     let freq = Frequency::from_mhz(1500);
-    assert_eq!(freq.to_hz(), 1_500_000_000);
-    assert_eq!(freq.to_khz(), 1_500_000);
-    assert_eq!(freq.to_ghz(), 1); // truncation
+    assert_eq!(freq.as_hz(), 1_500_000_000);
+    assert_eq!(freq.as_khz(), 1_500_000);
+    assert_eq!(freq.as_ghz(), 1); // truncation
 }
 
 #[test]

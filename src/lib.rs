@@ -52,10 +52,10 @@ pub const GIGAHERTZ: u64 = 1_000_000_000;
 /// use parse_frequency::Frequency;
 ///
 /// let freq = Frequency::from_hz(parse_frequency::GIGAHERTZ);
-/// assert_eq!(freq.to_ghz(), 1);
+/// assert_eq!(freq.as_ghz(), 1);
 ///
 /// let freq: Frequency = "2.5GHz".parse().unwrap();
-/// assert_eq!(freq.to_hz(), 2_500_000_000);
+/// assert_eq!(freq.as_hz(), 2_500_000_000);
 ///
 /// let strfreq: String = freq.to_string();
 /// assert_eq!(strfreq, "2.50 GHz");
@@ -91,23 +91,23 @@ impl Frequency {
     }
 
     #[must_use]
-    pub fn to_hz(&self) -> u64 {
+    pub fn as_hz(&self) -> u64 {
         self.0
     }
 
     #[must_use]
-    pub fn to_khz(&self) -> u64 {
-        self.to_hz() / KILOHERTZ
+    pub fn as_khz(&self) -> u64 {
+        self.as_hz() / KILOHERTZ
     }
 
     #[must_use]
-    pub fn to_mhz(&self) -> u64 {
-        self.to_hz() / MEGAHERTZ
+    pub fn as_mhz(&self) -> u64 {
+        self.as_hz() / MEGAHERTZ
     }
 
     #[must_use]
-    pub fn to_ghz(&self) -> u64 {
-        self.to_hz() / GIGAHERTZ
+    pub fn as_ghz(&self) -> u64 {
+        self.as_hz() / GIGAHERTZ
     }
 
     /// Converts the frequency to a `std::time::Duration`.
@@ -137,7 +137,7 @@ impl Display for Frequency {
     // Precision loss is acceptable here
     #[allow(clippy::cast_precision_loss)]
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let value = self.to_hz();
+        let value = self.as_hz();
 
         if value >= GIGAHERTZ {
             write!(f, "{:.2} GHz", value as f64 / GIGAHERTZ as f64)
@@ -213,16 +213,16 @@ impl Div<u64> for Frequency {
 ///
 /// ```
 /// let freq = parse_frequency::parse_frequency("2.5GHz").unwrap();
-/// assert_eq!(freq.to_hz(), 2_500_000_000);
+/// assert_eq!(freq.as_hz(), 2_500_000_000);
 ///
 /// let freq = parse_frequency::parse_frequency("1.5MHz").unwrap();
-/// assert_eq!(freq.to_hz(), 1_500_000);
+/// assert_eq!(freq.as_hz(), 1_500_000);
 ///
 /// let freq = parse_frequency::parse_frequency("500kHz").unwrap();
-/// assert_eq!(freq.to_hz(), 500_000);
+/// assert_eq!(freq.as_hz(), 500_000);
 ///
 /// let freq = parse_frequency::parse_frequency("100Hz").unwrap();
-/// assert_eq!(freq.to_hz(), 100);
+/// assert_eq!(freq.as_hz(), 100);
 ///
 /// let freq = parse_frequency::parse_frequency("invalid").unwrap_err();
 /// assert_eq!(freq.to_string(), "Unknown unit: invalid");
