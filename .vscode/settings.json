@@ -4,6 +4,12 @@
         "clap",
     ],
     "cSpell.words": [
-        "repr"
+        "eprintln",
+        "freqs",
+        "nanos",
+        "println",
+        "repr",
+        "serde",
+        "strfreq"
     ]
 }
