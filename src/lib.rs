@@ -24,6 +24,28 @@ pub const MEGAHERTZ: u64 = 1_000_000;
 /// 1 gigahertz (GHz) in hertz
 pub const GIGAHERTZ: u64 = 1_000_000_000;
 
+/// Represents a frequency
+///
+/// This struct is a wrapper around a `u64` value representing the frequency in hertz.
+/// It provides methods to convert between different frequency units (Hz, kHz, MHz, GHz) and
+/// to parse frequency strings.
+///
+/// # Examples
+///
+/// ```rust
+/// use parse_frequency::Frequency;
+///
+/// let freq = Frequency::from_hz(parse_frequency::GIGAHERTZ);
+/// assert_eq!(freq.to_ghz(), 1);
+///
+/// let freq: Frequency = "2.5GHz".parse().unwrap();
+/// assert_eq!(freq.to_hz(), 2_500_000_000);
+///
+/// let strfreq: String = freq.to_string();
+/// assert_eq!(strfreq, "2.50 GHz");
+///
+/// println!("Frequency: {}", freq);
+/// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default, Hash)]
 #[repr(transparent)]
 pub struct Frequency(pub u64);
@@ -158,8 +180,6 @@ impl Sub for Frequency {
 /// # Examples
 ///
 /// ```
-/// use parse_frequency::Frequency;
-///
 /// let freq = parse_frequency::parse_frequency("2.5GHz").unwrap();
 /// assert_eq!(freq.to_hz(), 2_500_000_000);
 ///
