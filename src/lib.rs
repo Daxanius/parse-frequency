@@ -285,11 +285,14 @@ pub fn parse_frequency(s: &str) -> Result<Frequency> {
     let s = s.trim().to_lowercase();
 
     let (value_str, multiplier) = if let Some(value) = s.strip_suffix("ghz") {
-        (value, 1_000_000_000)
+        #[allow(clippy::cast_possible_truncation)]
+        (value, GIGAHERTZ as i32)
     } else if let Some(value) = s.strip_suffix("mhz") {
-        (value, 1_000_000)
+        #[allow(clippy::cast_possible_truncation)]
+        (value, MEGAHERTZ as i32)
     } else if let Some(value) = s.strip_suffix("khz") {
-        (value, 1_000)
+        #[allow(clippy::cast_possible_truncation)]
+        (value, KILOHERTZ as i32)
     } else if let Some(value) = s.strip_suffix("hz") {
         (value, 1)
     } else {
