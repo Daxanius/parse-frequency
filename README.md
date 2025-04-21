@@ -125,7 +125,7 @@ struct Args {
 }
 ```
 
-### enum-traits
+### num-traits
 Enable `num-traits` to use `Frequency` in generic numeric code (e.g. scientific, DSP, or math contexts):
 
 ```toml
