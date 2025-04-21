@@ -8,7 +8,6 @@ A simple, no-nonsense Rust library for parsing frequency strings like `"1.5GHz"`
 Supports serialization, deserialization, CLI parsing, and conversions between Hz, kHz, MHz, and GHz.
 
 ## Features
-
 - Parse human-friendly strings like `"1GHz"`, `"2.5 MHz"`, or `"42 kHz"` into a `Frequency` type
 - Convert between Hz, kHz, MHz, and GHz with ease
 - `Display` implementation (e.g., `"2.50 MHz"`)
@@ -24,7 +23,6 @@ Supports serialization, deserialization, CLI parsing, and conversions between Hz
   - [`chrono`](https://crates.io/crates/chrono) duration support
 
 ## Example
-
 ```rust
 use parse_frequency::Frequency;
 
@@ -45,16 +43,7 @@ Add this to your `Cargo.toml`:
 parse-frequency = "2.0"
 ```
 
-Enable optional features:
-
-```toml
-[dependencies.parse-frequency]
-version = "1.0"
-features = ["serde", "clap", "num-traits", "schemars", "time", "chrono"]
-```
-
 ## Quick Start
-
 ### Parse from a string
 
 ```rust
@@ -90,7 +79,7 @@ assert_eq!(duration.as_nanos(), 1); // 1 GHz → 1 nanosecond period
 ```
 
 ## Optional Integrations
-parse-frequency a number of optional features that enable seamless integration with commonly used Rust libraries. Enable these via Cargo features.
+parse-frequency provides a number of optional features that enable seamless integration with commonly used Rust libraries. Enable these via Cargo features.
 
 ### serde
 Enable the `serde` feature to serialize and deserialize `Frequency` as human-readable strings:
@@ -197,7 +186,7 @@ struct Config {
 }
 ```
 
-Generates schema like:
+Generates a schema like:
 
 ```json
 {
